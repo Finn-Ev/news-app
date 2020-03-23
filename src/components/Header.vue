@@ -59,9 +59,7 @@ export default {
       this.showCategoryMenu = !this.showCategoryMenu;
     },
     closeCategoryMenu() {
-      this.showCategoryMenu = false;
-      console.log("ja");
-      
+      this.showCategoryMenu = false;      
     }
   }
 };
