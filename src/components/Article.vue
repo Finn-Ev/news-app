@@ -17,7 +17,6 @@ export default {
 
 <style lang="scss">
 .article {
-  border: none;
   width: 30vw;
   min-width: 300px;
   margin: 1rem;

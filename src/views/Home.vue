@@ -34,7 +34,8 @@ export default {
       )
         .then(res => res.json())
         .then(data => {
-          this.articles = data.articles;
+          const filteredArticles = data.articles.filter(article => article.description != null ) // filter articles without description
+          this.articles = filteredArticles.filter(article => article.urlToImage != null ) // filter articles without dimage
         });
     }
   },
