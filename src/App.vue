@@ -16,9 +16,21 @@ export default {
 };
 </script>
 <style lang="scss">
+
+:root{
+  scroll-behavior: smooth;
+}
+
 .router-link-exact-active {
   border-bottom: 2px solid black;
   padding-bottom: 8px !important;
+
+  
+  @media screen and (max-width: 800px){
+   border-bottom: none !important;
+    font-weight: 600;
+    
+  }
 }
 
 .articles{

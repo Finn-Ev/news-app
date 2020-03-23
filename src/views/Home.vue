@@ -30,12 +30,11 @@ export default {
   methods: {
     fetchTopHeadlines() {
       fetch(
-        "http://newsapi.org/v2/top-headlines?country=de&apiKey=aea2c011a7e24b5192fcbd65533e0103"
+        "https://newsapi.org/v2/top-headlines?country=de&apiKey=aea2c011a7e24b5192fcbd65533e0103"
       )
         .then(res => res.json())
         .then(data => {
           this.articles = data.articles;
-          console.log(this.articles);
         });
     }
   },

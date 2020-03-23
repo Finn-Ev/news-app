@@ -36,13 +36,12 @@ export default {
   methods: {
     fetchSearchTermArticles(searchTerm) {
       fetch(
-        `http://newsapi.org/v2/everything?language=de&q=${searchTerm}&sortBy=publishedAt&pageSize=50&apiKey=aea2c011a7e24b5192fcbd65533e0103`
+        `https://newsapi.org/v2/everything?language=de&q=${searchTerm}&sortBy=publishedAt&pageSize=50&apiKey=aea2c011a7e24b5192fcbd65533e0103`
       )
         .then(res => res.json())
         .then(data => {
           this.articles = data.articles.filter(article => article.description != null)
           this.searchTerm = searchTerm;
-          console.log(this.articles);
         });
     }
   },

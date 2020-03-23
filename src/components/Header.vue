@@ -1,16 +1,14 @@
 <template>
   <div class="header">
     <nav class="navbar navbar-expand navbar-light">
-      <router-link class="navbar-brand text-white ml-5" to="/">News-App</router-link>
-      <form @submit="handleSubmit" class="form-inline my-1 ml-auto mr-5">
+      <router-link class="navbar-brand text-white" to="/">News-App</router-link>
+      <form @submit="handleSubmit" class="form-inline my-1 ml-auto">
         <div class="input-group">
           <input
             v-model="searchTerm"
             type="text"
             class="form-control"
             placeholder="Nach Artikeln suchen"
-            aria-label="Recipient's username"
-            aria-describedby="button-addon2"
           />
           <div class="input-group-append">
             <button class="btn btn-dark" type="button" id="button-addon2">
@@ -20,15 +18,19 @@
         </div>
       </form>
     </nav>
+    <div @click="toggleCategoryMenu" v-if="width <= 800" class="toggle-category-menu bg-light">
+      Kategorien&nbsp;
+      <i class="fas fa-caret-down"></i>
+    </div>
 
     <div class="sub-navbar-wrapper bg-light">
-      <div class="sub-navbar">
-        <router-link class="category-link" to="/kategorie/corona">Corona</router-link>
-        <router-link class="category-link" to="/kategorie/politik">Politik</router-link>
-        <router-link class="category-link" to="/kategorie/finanzen">Finanzen</router-link>
-        <router-link class="category-link" to="/kategorie/wissen">Wissen</router-link>
-        <router-link class="category-link" to="/kategorie/gesundheit">Gesundheit</router-link>
-        <router-link class="category-link" to="/kategorie/sport">Sport</router-link>
+      <div @click="closeCategoryMenu" class="sub-navbar" v-if="width > 800 || showCategoryMenu">
+        <router-link class="category-link" to="/business">Finanzen</router-link>
+        <router-link class="category-link" to="/entertainment">Unterhaltung</router-link>
+        <router-link class="category-link" to="/health">Gesundheit</router-link>
+        <router-link class="category-link" to="/science">Wissen</router-link>
+        <router-link class="category-link" to="/sports">Sport</router-link>
+        <router-link class="category-link" to="/technology">Technologie</router-link>
       </div>
     </div>
   </div>
@@ -38,14 +40,28 @@
 export default {
   data() {
     return {
-      searchTerm: ""
+      searchTerm: "",
+      showCategoryMenu: false
     };
+  },
+  computed: {
+    width() {
+      return window.innerWidth;
+    }
   },
   methods: {
     handleSubmit(e) {
       e.preventDefault();
       this.$router.push(`/suche/${this.searchTerm}`);
       this.searchTerm = "";
+    },
+    toggleCategoryMenu() {
+      this.showCategoryMenu = !this.showCategoryMenu;
+    },
+    closeCategoryMenu() {
+      this.showCategoryMenu = false;
+      console.log("ja");
+      
     }
   }
 };
@@ -54,10 +70,26 @@ export default {
 <style lang="scss">
 .navbar {
   background-color: rgb(206, 43, 43);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+
+  @media screen and (max-width: 800px) {
+    flex-direction: column;
+    align-content: center;
+    .navbar-brand {
+      margin-bottom: 10px;
+    }
+  }
   .navbar-brand {
     border-bottom: none;
     padding-bottom: 0 !important;
   }
+}
+
+.toggle-category-menu {
+  text-align: end;
+  padding: 10px;
 }
 
 .sub-navbar {
@@ -65,6 +97,21 @@ export default {
   margin: auto;
   display: flex;
   justify-content: space-evenly;
+  animation: slide-in 0.3s ease;
+
+  @keyframes slide-in {
+    from {
+      transform: translateX(500px);
+    }
+    to {
+      transform: translateX(0);
+    }
+  }
+
+  @media screen and (max-width: 800px) {
+    flex-direction: column;
+    text-align: center;
+  }
 
   .category-link {
     color: black;
